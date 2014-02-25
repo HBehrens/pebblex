@@ -5,7 +5,12 @@ module PebbleX
     def initialize(directory=nil, project_name=nil, pebble_sdk_dir=nil)
       @directory = directory || Dir.getwd
       @project_name = project_name || File.basename(@directory)
-      @pebble_sdk_dir = pebble_sdk_dir || File.expand_path('../..', `which pebble`)
+      pebble_cmd = `which pebble`
+      unless pebble_cmd != ''
+        raise ArgumentError, "Make sure the 'pebble' command is on your path."
+      end
+
+      @pebble_sdk_dir = pebble_sdk_dir || File.expand_path('../..', pebble_cmd)
 
       unless File.directory?(@directory)
         raise ArgumentError, "The directory '#{@pebble_sdk_dir}' does not exist."
