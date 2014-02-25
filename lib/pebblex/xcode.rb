@@ -2,7 +2,10 @@ require 'xcodeproj'
 
 module PebbleX
   class Xcode
+    attr_accessor :verbose
+
     def initialize(directory=nil, project_name=nil, pebble_sdk_dir=nil)
+      @verbose = false
       @directory = directory || Dir.getwd
       @project_name = project_name || File.basename(@directory)
       pebble_cmd = `which pebble`
@@ -22,8 +25,10 @@ module PebbleX
     end
 
     def create_project
-
-
+      if @verbose
+        puts "creating project in directory #{@directory}"
+        puts "using pebble sdk at #{@pebble_sdk_dir}"
+      end
 
       Dir.chdir(@directory) # TODO: popd at the end of this method
 
@@ -42,6 +47,7 @@ module PebbleX
 
       Dir.glob('src/**/*.{c,h,js}').each do |f|
         file = group.new_file(f)
+        puts "adding file #{f}" if @verbose
         if File.extname(f) == '.c'
           ios_target.add_file_references([file])
         end
