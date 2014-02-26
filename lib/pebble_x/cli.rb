@@ -27,7 +27,13 @@ module PebbleX
     desc "build", "Builds pebble project"
     def build
       pebble = PebbleX::Pebble.new(self)
-      pebble.build
+      exit(pebble.build)
+    end
+
+    desc "debug", "Loads PBW and logs output from connected watch"
+    def debug
+      pebble = PebbleX::Pebble.new(self)
+      exit(pebble.debug)
     end
 
     # provide recurring logic (based on command line switches) to separate commands
