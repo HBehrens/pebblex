@@ -33,6 +33,8 @@ module PebbleX
 
       legacy_target.build_tool_path = @pebblex_cmd
       legacy_target.build_arguments_string = "build --pebble_sdk=#{@pebble_sdk_dir}"
+
+      legacy_target.build_configuration_list = Xcodeproj::Project::ProjectHelper.configuration_list(@project, :osx)
       @project.targets << legacy_target
 
       # fake iOS target to provide search path
