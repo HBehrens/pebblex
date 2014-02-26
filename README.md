@@ -1,4 +1,4 @@
-# PebbleX [![Build Status](https://travis-ci.org/HBehrens/pebblex.png)](https://travis-ci.org/HBehrens/pebblex)
+# PebbleX [![Build Status](https://travis-ci.org/HBehrens/pebblex.png)](https://travis-ci.org/HBehrens/pebblex)[![Gem Version](https://badge.fury.io/rb/pebblex.png)](http://badge.fury.io/rb/pebblex)
 
 A small command line tool to add functionality the `pebble` command is missing right now.
 Ideally, there will be no need for `pebblex` in the future, anymore.
