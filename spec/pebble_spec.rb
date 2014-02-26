@@ -41,4 +41,20 @@ describe 'Pebble' do
     end
 
   end
+
+
+  it 'processes sys_call_output' do
+      p = PebbleX::Pebble.new(e)
+      allow(p).to receive(:pwd).and_return '/path/to/project'
+      expect(p.process_sys_call_line nil).to eq nil
+      expect(p.process_sys_call_line '').to eq ''
+
+      error_in = "../src/test.c:12:5: error: implicit declaration of function 'text_layer_set_text2'"
+      error_out = "/path/to/project/src/test.c:12:5: error: implicit declaration of function 'text_layer_set_text2'"
+      expect(p.process_sys_call_line error_in).to eq error_out
+
+      warning_in = "../src/test.c:11:13: warning: unused variable 'i' [-Wunused-variable]"
+      warning_out = "/path/to/project/src/test.c:11:13: warning: unused variable 'i' [-Wunused-variable]"
+      expect(p.process_sys_call_line warning_in).to eq warning_out
+  end
 end

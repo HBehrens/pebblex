@@ -7,9 +7,36 @@ module PebbleX
       @pebble_cmd = environment.pebble_cmd
     end
 
+    def pwd
+      Dir.pwd
+    end
+
+    def process_sys_call_line(line)
+      return line unless line
+      line.gsub %r{^(.*?)(:\d+:(\d+:)? (warning|error):)} do |full_match,foo|
+        File.expand_path($1, File.join(pwd, 'build')) + $2
+      end
+    end
+
     def sys_call(call)
-      `#{call}`
-      $?.exitstatus
+      r, io = IO.pipe
+      fork do
+        system(call, out: io, err: io)
+        io.puts $?.exitstatus
+      end
+
+      io.close
+      exit_status = nil
+      r.each_line do |l|
+        if r.eof?
+          exit_status = l.to_i
+        else
+          l = process_sys_call_line(l)
+          $stderr.puts l if l
+        end
+      end
+
+      exit_status
     end
 
     def kill_pebble
