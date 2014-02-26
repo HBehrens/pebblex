@@ -8,12 +8,12 @@ module PebbleX
       @verbose = false
       @directory = directory || Dir.getwd
       @project_name = project_name || File.basename(@directory)
-      pebble_cmd = `which pebble`
-      unless pebble_cmd != ''
+      @pebble_cmd = `which pebble`.strip
+      unless @pebble_cmd != ''
         raise ArgumentError, "Make sure the 'pebble' command is on your path."
       end
 
-      @pebble_sdk_dir = pebble_sdk_dir || File.expand_path('../..', pebble_cmd)
+      @pebble_sdk_dir = pebble_sdk_dir || File.expand_path('../..', @pebble_cmd)
 
       unless File.directory?(@directory)
         raise ArgumentError, "The directory '#{@pebble_sdk_dir}' does not exist."
@@ -37,10 +37,16 @@ module PebbleX
       # will add pebble sdk headers and build/src/resource_ids.auto.h to search path
       @project.build_configuration_list.set_setting('HEADER_SEARCH_PATHS', [File.join(@pebble_sdk_dir, 'Pebble/include'), 'build'])
 
+      legacy_target = @project.new(Xcodeproj::Project::Object::PBXLegacyTarget)
+      legacy_target.name = 'Pebble'
+      legacy_target.product_name = 'Pebble'
+
+      legacy_target.build_tool_path = $0
+      legacy_target.build_arguments_string = "build --pebble_path=#{@pebble_cmd}"
+      @project.targets << legacy_target
+
       # fake iOS target to provide search path
       ios_target = @project.new_target(:application, 'fake-iOS-target', :ios)
-
-      # TODO: create target to call pebblex command upon build
 
       # build project groups
       group = @project.main_group.new_group("sources", "src")
