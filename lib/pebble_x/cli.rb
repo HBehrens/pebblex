@@ -20,32 +20,41 @@ module PebbleX
 
     desc "xcode", "Creates and Xcode project file"
     def xcode
-      xcode = PebbleX::Xcode.new(self)
+      xcode = command_helper PebbleX::Xcode
       xcode.create_project
     end
 
     desc "build", "Builds pebble project"
     def build
-      pebble = PebbleX::Pebble.new(self)
+      pebble = command_helper PebbleX::Pebble
       exit(pebble.build)
     end
 
     desc "debug", "Loads PBW and logs output from connected watch"
     def debug
-      pebble = PebbleX::Pebble.new(self)
+      pebble = command_helper PebbleX::Pebble
       exit(pebble.debug)
     end
 
     # provide recurring logic (based on command line switches) to separate commands
     no_commands do
+
+      def command_helper(cls)
+        cls.new self
+      end
+
       def verbose?
         return options[:verbose]
+      end
+
+      def sys_call(call)
+        `#{call}`
       end
 
       def pebble_sdk_dir
         sdk_dir = options[:pebble_sdk]
         unless sdk_dir
-          pebble_cmd = `which pebble`.strip
+          pebble_cmd = sys_call('which pebble').strip
           if pebble_cmd != ''
             sdk_dir = File.expand_path('../..', pebble_cmd)
           end
