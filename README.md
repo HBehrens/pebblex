@@ -21,14 +21,20 @@ Install the Ruby Gem:
 
 ## Usage
 
-After creating a new pebble project, you can easily create an xcode project file
+After creating a new pebble project 
 
     pebble new-project myproject --javascript
+    
+you can easily create xcode project file 
+
     cd myproject
     pebblex xcode
     open myproject.xcodeproj
 
-The `pebblex xcode` command will also create a target `pebble` that builds your project right from the IDE.
+The `pebblex xcode` command will also create a target "Pebble" that builds your project right from the IDE. After each build, all warnings and errors will be propagated back right into your editor.
+
+
+### Optional: AppCode
 
 If you are using, [AppCode](AppCode) you can even deploy and look at the logs directly from the IDE! Make these adjustments to the run configuration to do so:
 
