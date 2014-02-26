@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["HeikoBehrens@gmx.de"]
   spec.summary       = %q{Some additions to the pebble CLI.}
   spec.description   = %q{For now, it can create and Xcode project from a pebble dir. In future, some other convenience commands will be added.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/hbehrens/pebblex"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
