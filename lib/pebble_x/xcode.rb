@@ -2,25 +2,15 @@ require 'xcodeproj'
 
 module PebbleX
   class Xcode
-    attr_accessor :verbose
-
-    def initialize(directory=nil, project_name=nil, pebble_sdk_dir=nil)
-      @verbose = false
+    def initialize(environment, directory=nil, project_name=nil)
+      @verbose = environment.verbose?
       @directory = directory || Dir.getwd
       @project_name = project_name || File.basename(@directory)
-      @pebble_cmd = `which pebble`.strip
-      unless @pebble_cmd != ''
-        raise ArgumentError, "Make sure the 'pebble' command is on your path."
-      end
-
-      @pebble_sdk_dir = pebble_sdk_dir || File.expand_path('../..', @pebble_cmd)
-
-      unless File.directory?(@directory)
-        raise ArgumentError, "The directory '#{@pebble_sdk_dir}' does not exist."
-      end
+      @pebblex_cmd = environment.pebblex_cmd
+      @pebble_sdk_dir = environment.pebble_sdk_dir
 
       unless File.exists?(File.join(@directory, 'appinfo.json'))
-        raise ArgumentError, "The directory '#{@pebble_sdk_dir}' doesn not contain a Pebble project."
+        raise ArgumentError, "The directory '#{@directory}' doesn not contain a Pebble project."
       end
     end
 
@@ -41,8 +31,8 @@ module PebbleX
       legacy_target.name = 'Pebble'
       legacy_target.product_name = 'Pebble'
 
-      legacy_target.build_tool_path = $0
-      legacy_target.build_arguments_string = "build --pebble_path=#{@pebble_cmd}"
+      legacy_target.build_tool_path = @pebblex_cmd
+      legacy_target.build_arguments_string = "build --pebble_sdk=#{@pebble_sdk_dir}"
       @project.targets << legacy_target
 
       # fake iOS target to provide search path
