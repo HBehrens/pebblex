@@ -29,11 +29,15 @@ After creating a new pebble project, you can easily create an xcode project file
 
 The `pebblex xcode` command will also create a target `pebble` that builds your project right from the IDE.
 
+If you are using, [AppCode](http://www.jetbrains.com/objc/) you can even deploy and look at the logs directly from the IDE! Make these adjustments to the run configuration to do so:
+
+![alt tag](https://raw.github.com/HBehrens/pebblex/master/images/AppCodeRunConfig.png)
+
 ## Contributing
 
 1. Fork it ( https://github.com/HBehrens/pebblex/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Build and test PebbleX locally (`gem build pebblex.gemspec && gem install pebblex-<version>.gem`)
+3. Build and test PebbleX locally (`rake build && rake install`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
