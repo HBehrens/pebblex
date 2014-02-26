@@ -21,7 +21,7 @@ describe 'Xcode' do
 
   e = nil
 
-  before do
+  before(:each) do
     e = double("environment")
     @project_with_js = nil
     expect(e).to receive(:verbose?) {false}
