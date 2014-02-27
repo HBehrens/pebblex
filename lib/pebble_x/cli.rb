@@ -18,7 +18,7 @@ module PebbleX
     end
     map %w(-v --version) => :version
 
-    desc "xcode", "Creates and Xcode project file"
+    desc "xcode", "Creates an Xcode project file"
     def xcode
       xcode = command_helper PebbleX::Xcode
       xcode.create_project
