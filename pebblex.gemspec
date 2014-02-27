@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = PebbleX::VERSION
   spec.authors       = ["Heiko Behrens"]
   spec.email         = ["HeikoBehrens@gmx.de"]
-  spec.summary       = %q{Some additions to the pebble CLI.}
-  spec.description   = %q{For now, it can create and Xcode project from a pebble dir. In future, some other convenience commands will be added.}
+  spec.summary       = %q{Enables Pebble development with Xcode and AppCode.}
+  spec.description   = %q{Creates an Xcode project from a pebble project that contains the needed search paths, resources and .c files to start right away. Each time you build your watch app from the IDE, all warnings and errors of the underlying ´pebble build` command will be presented right in the editor. With AppCode you can even build, install the .pbw to your watch, and look at the live logs as a one-step action directly from your IDE!}
   spec.homepage      = "https://github.com/hbehrens/pebblex"
   spec.license       = "MIT"
 
