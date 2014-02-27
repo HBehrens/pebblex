@@ -1,6 +1,6 @@
 # PebbleX [![Build Status](https://travis-ci.org/HBehrens/pebblex.png)](https://travis-ci.org/HBehrens/pebblex)[![Gem Version](https://badge.fury.io/rb/pebblex.png)](http://badge.fury.io/rb/pebblex)
 
-A small command line tool to use Xcode and [AppCode][AppCode] as development environment for the [Pebble smartwatch SDK](https://developer.getpebble.com/2/). It's based on the SDK's official `pebble` command that steadily evolves and might contain some of the functionality `pebblex` introduces by iteself in the future. Ideally, there will be no need for `pebblex` at some point, anymore.
+A small command line tool to use Xcode and [AppCode][AppCode] as development environment for the [Pebble smartwatch SDK](https://developer.getpebble.com/2/). It's based on the SDK's official `pebble` command that steadily evolves and might contain some of the functionality `pebblex` introduces by itself in the future. Ideally, there will be no need for `pebblex` at some point, anymore.
 
 ## Background
 
@@ -28,7 +28,7 @@ After creating a new pebble project (as described in the [Pebble tutorial](https
 you can easily create an Xcode project file 
 
     pebblex xcode
-    open myproject.xcodeproj
+    open hello_world.xcodeproj
 
 As part of the project file, `pebblex xcode` will create a target "Pebble" that builds your project right from the IDE. After each build, all warnings and errors will be propagated back right into your editor.
 
