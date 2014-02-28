@@ -22,7 +22,9 @@ module PebbleX
 
       Dir.chdir(@directory) # TODO: popd at the end of this method
 
-      project = Xcodeproj::Project.new(@project_name+'.xcodeproj')
+      project_filename = @project_name+'.xcodeproj'
+      puts "Creating #{project_filename}"
+      project = Xcodeproj::Project.new(project_filename)
 
       # will add pebble sdk headers and build/src/resource_ids.auto.h to search path
       project.build_configuration_list.set_setting('HEADER_SEARCH_PATHS', [File.join(@pebble_sdk_dir, 'Pebble/include'), 'build'])
