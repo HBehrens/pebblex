@@ -57,6 +57,24 @@ module PebbleX
       # clean up xcode project ('products' group must remain due to fake iOS target)
       project.frameworks_group.remove_from_project
 
+      # run configuration for Pebble target
+      scheme = Xcodeproj::XCScheme.new
+      scheme.add_build_target legacy_target
+      launch_action = scheme.instance_variable_get :@launch_action
+      launch_action.attributes["useCustomWorkingDirectory"] = "YES"
+      launch_action.attributes["customWorkingDirectory"] = @directory
+      path_runnable = launch_action.add_element "PathRunnable"
+      path_runnable.attributes["FilePath"] = @pebblex_cmd
+      command_line_arguments = launch_action.add_element "CommandLineArguments"
+      command_line_argument = command_line_arguments.add_element "CommandLineArgument"
+      command_line_argument.attributes["argument"] = "debug --pebble_sdk=#{@pebble_sdk_dir}"
+      command_line_argument.attributes["isEnabled"] = "YES"
+      # remove unneeded elements
+      for s in [:@test_action, :@profile_action].each do
+        scheme.doc.elements[1].delete_element(scheme.instance_variable_get s)
+      end
+      scheme.save_as(project.path, legacy_target.name, false)
+
       project.save
 
       project
