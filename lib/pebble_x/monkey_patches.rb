@@ -33,7 +33,7 @@ class Xcodeproj::XCScheme
   alias construct_buildable_name_without_legacy_target construct_buildable_name
 
   def construct_buildable_name_with_legacy_target(build_target)
-    if build_target.isa
+    if build_target.is_a? Xcodeproj::Project::Object::PBXLegacyTarget
       build_target.name
     else
       construct_buildable_name_without_legacy_target build_target
