@@ -32,11 +32,7 @@ you can easily create an Xcode project file
 
 As part of the project file, `pebblex xcode` will create a target "Pebble" that builds your project right from the IDE. After each build, all warnings and errors will be propagated back right into your editor.
 
-### Optional: AppCode
-
-If you are using [AppCode][AppCode] you can go one step further: `pebblex` allows you to build, deploy and look at the logs directly from the IDE! Make these adjustments to the run configuration to do so:
-
-![alt tag](https://raw.github.com/HBehrens/pebblex/master/images/AppCodeRunConfig.png)
+Lucky [AppCode][AppCode] users: `pebblex` automatically creates a run configuration to build, deploy and look at the logs directly from the IDE! Make sure to set `PEBBLE_PHONE` before you push the play button.
 
 ## Contributing
 
