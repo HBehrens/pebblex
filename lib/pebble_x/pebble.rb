@@ -2,6 +2,8 @@ module PebbleX
   class Pebble
 
     attr_accessor :verbose
+    attr_accessor :phone
+    attr_accessor :pebble_id
 
     def initialize(environment)
       @pebble_cmd = environment.pebble_cmd
@@ -44,8 +46,10 @@ module PebbleX
       sleep(0.5) # phone's Pebble app needs some time before it accepts new connections
     end
 
-    def pebble_call(args)
+    def pebble_call(args, requires_connection=false)
       kill_pebble
+      args += " --phone=#{@phone}" if requires_connection and @phone
+      args += " --pebble_id=#{@pebble_id}" if requires_connection and @pebble_id
       sys_call("#{@pebble_cmd} #{args}")
     end
 
@@ -54,11 +58,11 @@ module PebbleX
     end
 
     def install
-      pebble_call('install')
+      pebble_call('install', true)
     end
 
     def logs
-      pebble_call('logs')
+      pebble_call('logs', true)
     end
 
     def debug

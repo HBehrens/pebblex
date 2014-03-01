@@ -22,6 +22,33 @@ describe 'Pebble' do
       expect(p).to receive(:sys_call).with('path/to/pebble foo')
       p.pebble_call('foo')
     end
+
+    it 'ignores phone and pebble-id if no connection required' do
+      p = PebbleX::Pebble.new(e)
+      p.phone = 'phone'
+      p.pebble_id = 'pebble_id'
+      expect(p).to receive(:kill_pebble)
+      expect(p).to receive(:sys_call).with('path/to/pebble foo')
+      p.pebble_call('foo', false)
+    end
+
+    it 'passes phone if connection required' do
+      p = PebbleX::Pebble.new(e)
+      p.phone = '1234'
+      expect(p).to receive(:kill_pebble)
+      expect(p).to receive(:sys_call).with('path/to/pebble foo --phone=1234')
+      p.pebble_call('foo', true)
+    end
+
+    it 'passes pebble-id if connection required' do
+      p = PebbleX::Pebble.new(e)
+      p.pebble_id = 'some_id'
+      expect(p).to receive(:kill_pebble)
+      expect(p).to receive(:sys_call).with('path/to/pebble foo --pebble_id=some_id')
+      p.pebble_call('foo', true)
+    end
+
+
   end
 
   describe 'debug' do

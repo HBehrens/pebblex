@@ -31,8 +31,12 @@ module PebbleX
     end
 
     desc "debug", "Loads PBW and logs output from connected watch"
+    option :phone
+    option :pebble_id
     def debug
       pebble = command_helper PebbleX::Pebble
+      pebble.phone = options[:phone] if options[:phone]
+      pebble.pebble_id = options[:pebble_id] if options[:pebble_id]
       exit(pebble.debug)
     end
 
