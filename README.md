@@ -10,13 +10,13 @@ Unfortunately, there's no development environment for the created project struct
 With the help of `pebblex` you can take advantage of Xcode or [AppCode][AppCode] to develop your Pebble watch faces or apps directly from a convenient IDE.
 The command line tool will create a `.xcodeproj` that contains the needed search paths, resources and .c files to start right away. Each time you build your watch app from the IDE, all warnings and errors of the underlying ´pebble build` command will be presented right in the editor.
 
-With [AppCode][AppCode] you can even build, install the `.pbw` to your watch, and look at the live logs as a one-step action directly from your IDE!
+With [AppCode][AppCode] (or the latest Xcode6-Beta) you can even build, install the `.pbw` to your watch, and look at the live logs as a one-step action directly from your IDE!
 
 ## Installation
 
 Install the Ruby Gem:
 
-    sudo gem install pebblex
+    gem install pebblex
 
 ## Usage
 
@@ -32,7 +32,7 @@ you can easily create an Xcode project file
 
 As part of the project file, `pebblex xcode` will create a target "Pebble" that builds your project right from the IDE. After each build, all warnings and errors will be propagated back right into your editor.
 
-Lucky [AppCode][AppCode] users: `pebblex` automatically creates a run configuration to build, deploy and look at the logs directly from the IDE! Make sure to set `PEBBLE_PHONE` before you push the play button.
+Lucky [AppCode][AppCode] (and now Xcode6-beta) users: `pebblex` automatically creates a run configuration to build, deploy and look at the logs directly from the IDE! Make sure to set `PEBBLE_PHONE` before you push the play button.
 
 ## Contributing
 
