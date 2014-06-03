@@ -65,6 +65,8 @@ module PebbleX
       launch_action = scheme.instance_variable_get :@launch_action
       launch_action.attributes["useCustomWorkingDirectory"] = "YES"
       launch_action.attributes["customWorkingDirectory"] = @directory
+      launch_action.attributes["selectedDebuggerIdentifier"] = ""
+      launch_action.attributes["selectedLauncherIdentifier"] = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       path_runnable = launch_action.add_element "PathRunnable"
       path_runnable.attributes["FilePath"] = @pebblex_cmd
       command_line_arguments = launch_action.add_element "CommandLineArguments"
