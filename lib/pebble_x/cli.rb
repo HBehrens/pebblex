@@ -68,6 +68,8 @@ module PebbleX
           raise ArgumentError, "Make sure the 'pebble' command is on your path or you pass --pebble_sdk."
         end
 
+        sdk_dir = sdk_dir.sub(ENV['HOME'], '~')
+
         return sdk_dir
       end
 
