@@ -1,4 +1,5 @@
 require 'thor'
+require 'pathname'
 
 module PebbleX
 
@@ -60,6 +61,9 @@ module PebbleX
         unless sdk_dir
           pebble_cmd = sys_call('which pebble').strip
           if pebble_cmd != ''
+            real_path = sys_call("readlink #{pebble_cmd}")
+            pebble_cmd = real_path if real_path != ''
+
             sdk_dir = File.expand_path('../..', pebble_cmd)
           end
         end

@@ -42,7 +42,7 @@ module PebbleX
     end
 
     def kill_pebble
-      sys_call('pkill -f python.*pebble')
+      sys_call('pkill -f "python.*pebble.py "')
       sleep(0.5) # phone's Pebble app needs some time before it accepts new connections
     end
 
