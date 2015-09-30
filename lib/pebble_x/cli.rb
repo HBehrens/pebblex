@@ -62,6 +62,7 @@ module PebbleX
           pebble_cmd = sys_call('which pebble').strip
           if pebble_cmd != ''
             real_path = sys_call("readlink #{pebble_cmd}")
+            real_path = File.expand_path("../#{real_path}", pebble_cmd) if real_path.start_with?('..')
             pebble_cmd = real_path if real_path != ''
 
             sdk_dir = File.expand_path('../..', pebble_cmd)

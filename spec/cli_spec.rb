@@ -99,6 +99,13 @@ describe 'CLI' do
       expect(c.pebble_sdk_dir).to eq '/path/to/sdk'
     end
 
+    it 'follows relative symlinks to determine sdk path' do
+      c = PebbleX::CLI.new
+      expect(c).to receive(:sys_call).with('which pebble').and_return '/some/relative/symlink'
+      expect(c).to receive(:sys_call).with('readlink /some/relative/symlink').and_return '../path/to/sdk/bin/pebble'
+      expect(c.pebble_sdk_dir).to eq '/some/path/to/sdk'
+    end
+
 
     it 'uses option pebble_sdk if provided' do
       c = PebbleX::CLI.new
