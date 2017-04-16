@@ -106,6 +106,12 @@ describe 'CLI' do
       expect(c).to receive(:options).and_return({:pebble_sdk => "/path/to/sdk"})
       expect(c.pebble_sdk_dir).to eq '/path/to/sdk'
     end
+
+    it 'replace HOME with a variable' do
+      c = PebbleX::CLI.new
+      expect(c).to receive(:sys_call).with('which pebble').and_return File.expand_path('~/path/to/sdk/bin/pebble')
+      expect(c.pebble_sdk_dir).to eq '~/path/to/sdk'
+    end
   end
 
 
